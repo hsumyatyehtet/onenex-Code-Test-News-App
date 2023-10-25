@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/news_main_nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_main_nav_graph"
+    app:startDestination="@id/navNews">
+
+    <fragment
+        android:id="@+id/navNews"
+        android:name="com.example.onenex_code_test_news_app.ui.fragment.NewsMainFragment"
+        android:label="NewsMainFragment"
+        tools:layout="@layout/fragment_news_main"/>
+
+    <fragment
+        android:id="@+id/navSave"
+        android:name="com.example.onenex_code_test_news_app.ui.fragment.SaveFragment"
+        android:label="SaveFragment"
+        tools:layout="@layout/fragment_save"/>
+
 
 </navigation>
