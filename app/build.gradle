@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 Properties properties = new Properties()
@@ -37,6 +38,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.3.2'
@@ -118,5 +122,11 @@ dependencies {
     def coroutines_flow_version = "1.6.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_flow_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_flow_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.0"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:2.5.0"
 
 }
