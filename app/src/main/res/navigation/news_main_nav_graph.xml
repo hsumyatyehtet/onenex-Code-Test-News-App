@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/news_main_nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_main_nav_graph"
+    app:startDestination="@id/navNews">
+
+    <fragment
+        android:id="@+id/navNews"
+        android:name="com.example.onenex_code_test_news_app.ui.fragment.NewsMainFragment"
+        android:label="NewsMainFragment"
+        tools:layout="@layout/fragment_news_main">
+
+        <action
+            android:id="@+id/action_navNews_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navSave"
+        android:name="com.example.onenex_code_test_news_app.ui.fragment.SaveFragment"
+        android:label="SaveFragment"
+        tools:layout="@layout/fragment_save">
+
+        <action
+            android:id="@+id/action_navSave_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.example.onenex_code_test_news_app.ui.fragment.NewsDetailFragment"
+        android:label="NewsDetailFragment"
+        tools:layout="@layout/fragment_news_detail"/>
+
 
 </navigation>
