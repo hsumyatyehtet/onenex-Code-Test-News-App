@@ -18,7 +18,7 @@ class NewsListAdapter(val delegate: Delegate) :BaseRecyclerAdapter<NewsListViewH
     }
 
     interface Delegate{
-        fun onTapItem()
+        fun onTapItem(title: String,url: String)
         fun onTapSaveItem(articleVO: ArticleVO)
     }
 

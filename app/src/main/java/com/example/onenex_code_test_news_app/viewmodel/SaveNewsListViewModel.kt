@@ -44,4 +44,8 @@ class SaveNewsListViewModel @Inject constructor(
 
     }
 
+    fun onTapSaveNews(articleVO: ArticleVO){
+        newsRepository.setSaveItem(articleVO.id, !articleVO.isSave)
+    }
+
 }

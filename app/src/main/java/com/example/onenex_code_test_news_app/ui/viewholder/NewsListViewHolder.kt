@@ -15,7 +15,9 @@ class NewsListViewHolder(
 
     init {
         itemView.setOnClickListener {
-                delegate.onTapItem()
+            mData?.let {articleVo->
+                delegate.onTapItem(articleVo.title.toString(),articleVo.url.toString())
+            }
 
         }
 

@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onenex_code_test_news_app.R
+import com.example.onenex_code_test_news_app.data.vos.response.ArticleVO
 import com.example.onenex_code_test_news_app.databinding.FragmentNewsMainBinding
 import com.example.onenex_code_test_news_app.databinding.FragmentSaveBinding
 import com.example.onenex_code_test_news_app.ui.adapter.SavedNewsListAdapter
@@ -18,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SaveFragment : BaseFragment(){
+class SaveFragment : BaseFragment(),SavedNewsListAdapter.Delegate{
 
     private lateinit var binding: FragmentSaveBinding
 
@@ -77,12 +80,20 @@ class SaveFragment : BaseFragment(){
 
     private fun setUpRecyclerView() {
 
-        mSavedNewsAdapter = SavedNewsListAdapter()
+        mSavedNewsAdapter = SavedNewsListAdapter(this)
         binding.rvSavedNewsList.layoutManager =
             LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.rvSavedNewsList.adapter = mSavedNewsAdapter
 
 
+    }
+
+    override fun onTapItem(title: String, url: String) {
+        findNavController().navigate(R.id.action_navSave_to_newsDetailFragment)
+    }
+
+    override fun onTapSaveItem(articleVO: ArticleVO) {
+        viewModel.onTapSaveNews(articleVO = articleVO)
     }
 
 }

@@ -8,14 +8,20 @@ import com.example.onenex_code_test_news_app.databinding.ViewHolderInNewsListBin
 import com.example.onenex_code_test_news_app.ui.viewholder.NewsListViewHolder
 import com.example.onenex_code_test_news_app.ui.viewholder.SavedNewsListViewHolder
 
-class SavedNewsListAdapter() :BaseRecyclerAdapter<SavedNewsListViewHolder,ArticleVO>(){
+class SavedNewsListAdapter(val delegate: Delegate) :BaseRecyclerAdapter<SavedNewsListViewHolder,ArticleVO>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedNewsListViewHolder {
         return SavedNewsListViewHolder(
             ViewHolderInNewsListBinding.inflate(
                 LayoutInflater.from(parent.context),parent,false
-            )
+            ),
+            delegate
         )
+    }
+
+    interface Delegate{
+        fun onTapItem(title: String,url: String)
+        fun onTapSaveItem(articleVO: ArticleVO)
     }
 
 }

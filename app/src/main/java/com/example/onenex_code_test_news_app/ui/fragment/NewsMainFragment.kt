@@ -123,7 +123,7 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
 
     }
 
-    override fun onTapItem() {
+    override fun onTapItem(title: String, url: String) {
         findNavController().navigate(R.id.action_navNews_to_newsDetailFragment)
     }
 
