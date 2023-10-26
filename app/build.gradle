@@ -87,6 +87,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.5"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
     androidTestImplementation "com.google.dagger:hilt-android:2.46"
     androidTestImplementation "com.google.dagger:hilt-android-testing:2.46"
     kaptAndroidTest "com.google.dagger:hilt-compiler:2.46"
@@ -99,6 +100,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 
     // RxKotlin
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -132,5 +134,18 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Moshi
+//    implementation "com.squareup.moshi:moshi:1.13.0"
+//    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
+//    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
+
+    //chunk
+    debugImplementation "com.readystatesoftware.chuck:library:1.1.0"
+    releaseImplementation "com.readystatesoftware.chuck:library-no-op:1.1.0"
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 }

@@ -1,10 +1,12 @@
 package com.example.onenex_code_test_news_app.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onenex_code_test_news_app.R
@@ -12,11 +14,20 @@ import com.example.onenex_code_test_news_app.data.vos.CategoryVO
 import com.example.onenex_code_test_news_app.databinding.FragmentNewsMainBinding
 import com.example.onenex_code_test_news_app.ui.adapter.CategoryListAdapter
 import com.example.onenex_code_test_news_app.ui.adapter.NewsListAdapter
+import com.example.onenex_code_test_news_app.utils.API_KEY_DATA
+import com.example.onenex_code_test_news_app.utils.QUERY_DATA_SOURCE
+import com.example.onenex_code_test_news_app.utils.StatefulData
 import com.example.onenex_code_test_news_app.utils.getCategoryList
+import com.example.onenex_code_test_news_app.viewmodel.NewsListViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAdapter.Delegate{
 
     private lateinit var binding: FragmentNewsMainBinding
+
+    private val viewModel by viewModels<NewsListViewModel>()
 
     private lateinit var mCategoryAdapter: CategoryListAdapter
     private lateinit var mNewsListAdapter: NewsListAdapter
@@ -36,6 +47,43 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
+        loadData()
+        setUpDataBinding()
+
+    }
+
+    private fun setUpDataBinding() {
+
+        var categoryList = getCategoryList()
+
+        categoryList.map {
+            if (it.id == 1){
+                it.isSelected = true
+            }
+        }
+
+        mCategoryAdapter.setNewData(categoryList)
+
+        viewModel.articleList.observe(viewLifecycleOwner){
+            when(it.state){
+                StatefulData.DataState.ERROR -> {
+                    Log.d("errorMessage",it.message.toString())
+                }
+                StatefulData.DataState.SUCCESS -> {
+                    it.data?.let {articleList->
+                        mNewsListAdapter.setNewData(articleList.toMutableList())
+                    }
+                }
+
+                else -> {}
+            }
+        }
+    }
+
+    private fun loadData() {
+        lifecycleScope.launch {
+            viewModel.loadNewsList(QUERY_DATA_SOURCE, API_KEY_DATA)
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -44,14 +92,12 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
             LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         binding.rvMain.adapter = mCategoryAdapter
 
-        mCategoryAdapter.setNewData(getCategoryList())
 
         mNewsListAdapter = NewsListAdapter(this)
         binding.rvNewsList.layoutManager =
             LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.rvNewsList.adapter = mNewsListAdapter
 
-        mNewsListAdapter.setNewData(getCategoryList())
 
     }
 
