@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onenex_code_test_news_app.R
 import com.example.onenex_code_test_news_app.data.vos.CategoryVO
+import com.example.onenex_code_test_news_app.data.vos.response.ArticleVO
 import com.example.onenex_code_test_news_app.databinding.FragmentNewsMainBinding
 import com.example.onenex_code_test_news_app.ui.adapter.CategoryListAdapter
 import com.example.onenex_code_test_news_app.ui.adapter.NewsListAdapter
@@ -19,6 +20,7 @@ import com.example.onenex_code_test_news_app.utils.QUERY_DATA_SOURCE
 import com.example.onenex_code_test_news_app.utils.StatefulData
 import com.example.onenex_code_test_news_app.utils.getCategoryList
 import com.example.onenex_code_test_news_app.viewmodel.NewsListViewModel
+import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -47,7 +49,6 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-      //  loadData()
         setUpDataBinding()
 
     }
@@ -69,23 +70,23 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
 
         viewModel.articleList.observe(viewLifecycleOwner){
             when(it.state){
+                StatefulData.DataState.LOADING ->{
+
+                }
                 StatefulData.DataState.ERROR -> {
+
                     Log.d("errorMessage",it.message.toString())
                 }
                 StatefulData.DataState.SUCCESS -> {
+
                     it.data?.let {articleList->
                         mNewsListAdapter.setNewData(articleList.toMutableList())
                     }
                 }
+                StatefulData.DataState.COMPLETED -> {
 
-                else -> {}
+                }
             }
-        }
-    }
-
-    private fun loadData() {
-        lifecycleScope.launch {
-            viewModel.loadNewsList(QUERY_DATA_SOURCE, API_KEY_DATA)
         }
     }
 
@@ -124,6 +125,10 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
 
     override fun onTapItem() {
         findNavController().navigate(R.id.action_navNews_to_newsDetailFragment)
+    }
+
+    override fun onTapSaveItem(articleVO: ArticleVO) {
+        viewModel.onTapSaveNews(articleVO = articleVO)
     }
 
 }

@@ -7,20 +7,19 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.onenex_code_test_news_app.data.vos.response.ArticleVO
 import io.reactivex.Completable
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NewsListDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserList(userList: List<ArticleVO>): Completable
+    fun insertNewsList(articleList: List<ArticleVO>)
 
     @Query("select * from news")
-    fun getUserList(): LiveData<List<ArticleVO>>
+    fun getNewsList(): Flow<List<ArticleVO>>
 
-//    @Query("select * from user_list where id =:userId")
-//    fun getUserByUserId(userId: Int): LiveData<ArticleVO>
-//
-//    @Query("select * from user_list where name like :searchWord")
-//    fun retrieveUserListBySearch(searchWord: String): LiveData<List<ArticleVO>>
+    @Query("UPDATE news SET isSave = :isSave where id = :newsId")
+    fun setSaveNews(newsId: Int,isSave: Boolean)
+
 
 }

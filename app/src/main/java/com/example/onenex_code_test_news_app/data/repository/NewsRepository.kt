@@ -9,4 +9,6 @@ interface NewsRepository {
 
     suspend fun getNews(source: String,apiKey:String): Flow<StatefulData<List<ArticleVO>>>
 
+    fun setSaveItem(newsId: Int,isSaved: Boolean)
+
 }

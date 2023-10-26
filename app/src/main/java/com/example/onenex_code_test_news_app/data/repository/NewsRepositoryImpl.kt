@@ -8,6 +8,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -21,12 +22,23 @@ class NewsRepositoryImpl @Inject constructor(
     override suspend fun getNews(
         source: String,
         apiKey: String
-    ): Flow<StatefulData<List<ArticleVO>>> = flow<StatefulData<List<ArticleVO>>> {
-
+    ): Flow<StatefulData<List<ArticleVO>>> = flow {
 
         loadNews(source = source, apiKey = apiKey, this@flow)
 
+        newsListDatabase.newsListDao().getNewsList().collect{articleList->
+
+            var articleListByCategory = articleList.filter { it.category == source }
+
+            if (articleListByCategory.isNotEmpty()) emit(StatefulData.success(articleListByCategory))
+            else if (articleListByCategory.isEmpty()) emit(StatefulData.error("Unable to upload news"))
+        }
+
     }.flowOn(Dispatchers.IO)
+
+    override fun setSaveItem(newsId: Int, isSaved: Boolean) {
+        newsListDatabase.newsListDao().setSaveNews(newsId = newsId,isSaved)
+    }
 
     private suspend fun loadNews(
         source: String,
@@ -43,9 +55,10 @@ class NewsRepositoryImpl @Inject constructor(
                     articleList.clear()
                     articleList.addAll(it)
                 }
-                //remain to save database
-//                collector.emit(StatefulData.completed())
-                collector.emit(StatefulData.success(articleList))
+
+                saveArticleList(source,articleList)
+
+                collector.emit(StatefulData.completed())
             }
 
             StatefulData.DataState.ERROR -> {
@@ -56,6 +69,15 @@ class NewsRepositoryImpl @Inject constructor(
             else -> collector.emit(StatefulData.loading())
         }
 
+    }
+
+    private fun saveArticleList(source: String, articleList: MutableList<ArticleVO>) {
+
+        articleList.map {
+            it.category = source
+        }
+
+        newsListDatabase.newsListDao().insertNewsList(articleList)
     }
 
 

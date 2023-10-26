@@ -1,6 +1,7 @@
 package com.example.onenex_code_test_news_app.data.vos.response
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 //@JsonClass(generateAdapter = true)
@@ -11,7 +12,7 @@ data class NewsResponse(
     val articles: List<ArticleVO>
 )
 
-@Entity(tableName = "news")
+@Entity(tableName = "news", indices = [Index(value = ["title","publishedAt"], unique = true)])
 data class ArticleVO(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
@@ -26,5 +27,7 @@ data class ArticleVO(
 
     var publishedAt: String? = null,
 
-    var category: String? = null
+    var category: String? = null,
+
+    var isSave: Boolean = false
 )

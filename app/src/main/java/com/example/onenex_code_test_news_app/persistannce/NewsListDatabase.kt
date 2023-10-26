@@ -15,7 +15,7 @@ import com.example.onenex_code_test_news_app.utils.DB_NAME
 )
 abstract class NewsListDatabase : RoomDatabase() {
 
-    abstract fun userListDao(): NewsListDao
+    abstract fun newsListDao(): NewsListDao
 
     companion object {
 
