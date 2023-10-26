@@ -11,4 +11,6 @@ interface NewsRepository {
 
     fun setSaveItem(newsId: Int,isSaved: Boolean)
 
+    fun getSavedNewsList(): Flow<StatefulData<List<ArticleVO>>>
+
 }

@@ -21,5 +21,8 @@ interface NewsListDao {
     @Query("UPDATE news SET isSave = :isSave where id = :newsId")
     fun setSaveNews(newsId: Int,isSave: Boolean)
 
+    @Query("select * from news where isSave = :isSaved")
+    fun getSavedNewsList(isSaved: Boolean): Flow<List<ArticleVO>>
+
 
 }

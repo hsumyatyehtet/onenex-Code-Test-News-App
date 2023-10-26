@@ -40,6 +40,15 @@ class NewsRepositoryImpl @Inject constructor(
         newsListDatabase.newsListDao().setSaveNews(newsId = newsId,isSaved)
     }
 
+    override fun getSavedNewsList(): Flow<StatefulData<List<ArticleVO>>> = flow<StatefulData<List<ArticleVO>>> {
+
+        newsListDatabase.newsListDao().getSavedNewsList(isSaved = true).collect{
+            if (it.isNotEmpty()) emit(StatefulData.success(it))
+            else if (it.isEmpty()) emit(StatefulData.error("Unable to get saved news list"))
+        }
+
+    }.flowOn(Dispatchers.IO)
+
     private suspend fun loadNews(
         source: String,
         apiKey: String,
