@@ -38,8 +38,12 @@ class NewsDetailFragment: BaseFragment() {
 
     private fun setUpDataObservation() {
         var title = args.newsTitle
+        var url = args.newsUrl
 
         binding.tvNewsTitle.text = title.toString()
+
+        binding.webview.settings.javaScriptEnabled = true
+        binding.webview.loadUrl(url)
     }
 
 }

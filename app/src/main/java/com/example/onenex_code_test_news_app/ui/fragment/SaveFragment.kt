@@ -95,8 +95,7 @@ class SaveFragment : BaseFragment(), SavedNewsListAdapter.Delegate {
     override fun onTapItem(title: String, url: String) {
         findNavController().navigate(
             R.id.action_navSave_to_newsDetailFragment,
-            getBundleNewsDetail(title = title)
-        )
+            getBundleNewsDetail(title = title, url = url),)
     }
 
     override fun onTapSaveItem(articleVO: ArticleVO) {

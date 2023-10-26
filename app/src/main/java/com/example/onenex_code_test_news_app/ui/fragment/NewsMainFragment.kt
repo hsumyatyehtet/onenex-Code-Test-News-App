@@ -129,7 +129,8 @@ class NewsMainFragment : BaseFragment(), CategoryListAdapter.Delegate, NewsListA
     override fun onTapItem(title: String, url: String) {
         findNavController().navigate(
             R.id.action_navNews_to_newsDetailFragment,
-            getBundleNewsDetail(title = title)
+            getBundleNewsDetail(title = title, url = url),
+
         )
     }
 

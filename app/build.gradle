@@ -149,4 +149,7 @@ dependencies {
     //progress
     implementation "com.kaopiz:kprogresshud:1.2.0"
 
+    //webview
+    implementation "androidx.webkit:webkit:1.7.0"
+
 }

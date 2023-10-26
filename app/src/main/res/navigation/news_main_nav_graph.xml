@@ -47,6 +47,10 @@
             android:name="news_title"
             app:argType="string"/>
 
+        <argument
+            android:name="news_url"
+            app:argType="string"/>
+
     </fragment>
 
 
