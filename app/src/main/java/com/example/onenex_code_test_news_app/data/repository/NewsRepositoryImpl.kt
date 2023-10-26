@@ -2,6 +2,7 @@ package com.example.onenex_code_test_news_app.data.repository
 
 import com.example.onenex_code_test_news_app.data.vos.response.ArticleVO
 import com.example.onenex_code_test_news_app.network.NewsRemoteDataSource
+import com.example.onenex_code_test_news_app.persistannce.NewsListDatabase
 import com.example.onenex_code_test_news_app.utils.StatefulData
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class NewsRepositoryImpl @Inject constructor(
+    private val newsListDatabase: NewsListDatabase,
     private val newsRemoteDataSource: NewsRemoteDataSource,
 ) : NewsRepository {
 

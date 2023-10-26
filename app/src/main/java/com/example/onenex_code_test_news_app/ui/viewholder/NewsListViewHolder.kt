@@ -5,6 +5,7 @@ import com.example.onenex_code_test_news_app.data.vos.CategoryVO
 import com.example.onenex_code_test_news_app.data.vos.response.ArticleVO
 import com.example.onenex_code_test_news_app.databinding.ViewHolderInNewsListBinding
 import com.example.onenex_code_test_news_app.ui.adapter.NewsListAdapter
+import com.example.onenex_code_test_news_app.utils.getApiDateTime
 
 class NewsListViewHolder(
     private val binding: ViewHolderInNewsListBinding,
@@ -24,6 +25,7 @@ class NewsListViewHolder(
         Glide.with(itemView.context)
             .load(data.urlToImage.toString())
             .into(binding.ivNewsItem)
+        binding.tvTime.text = getApiDateTime(data.publishedAt.toString())
 
     }
 

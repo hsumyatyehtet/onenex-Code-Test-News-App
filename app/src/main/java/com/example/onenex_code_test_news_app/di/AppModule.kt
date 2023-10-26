@@ -3,6 +3,7 @@ package com.example.onenex_code_test_news_app.di
 import android.content.Context
 import com.example.onenex_code_test_news_app.network.NewsListApi
 import com.example.onenex_code_test_news_app.network.NewsRemoteDataSource
+import com.example.onenex_code_test_news_app.persistannce.NewsListDatabase
 import com.example.onenex_code_test_news_app.utils.ApiConstants
 import com.example.onenex_code_test_news_app.utils.BASE_URL
 import com.example.onenex_code_test_news_app.utils.RoomAndMoshiTypeAdapter
@@ -62,6 +63,11 @@ object AppModule {
             .build()
             .create(NewsListApi::class.java)
 
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext appContext: Context): NewsListDatabase {
+        return NewsListDatabase.getDatabase(appContext)
+    }
 
     @Provides
     @Singleton

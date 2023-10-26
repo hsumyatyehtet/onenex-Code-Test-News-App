@@ -2,6 +2,7 @@ package com.example.onenex_code_test_news_app.utils
 
 import com.example.onenex_code_test_news_app.data.vos.CategoryVO
 
+const val DB_NAME = "NewsList.db"
 
 fun getCategoryList(): MutableList<CategoryVO>{
     return mutableListOf(

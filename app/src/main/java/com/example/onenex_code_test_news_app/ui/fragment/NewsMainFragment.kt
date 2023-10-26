@@ -47,7 +47,7 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        loadData()
+      //  loadData()
         setUpDataBinding()
 
     }
@@ -59,6 +59,9 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
         categoryList.map {
             if (it.id == 1){
                 it.isSelected = true
+                lifecycleScope.launch {
+                    viewModel.loadNewsList(it.key, API_KEY_DATA)
+                }
             }
         }
 
@@ -112,6 +115,10 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAda
         }
 
         mCategoryAdapter.setNewData(mDataList)
+
+        lifecycleScope.launch {
+            viewModel.loadNewsList(data.key, API_KEY_DATA)
+        }
 
     }
 

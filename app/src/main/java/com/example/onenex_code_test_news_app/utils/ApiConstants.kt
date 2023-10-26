@@ -14,6 +14,7 @@ const val QUERY_DATA_SOURCE = "bbc-news"
 //PARAM
 const val PARAM_API_KEY = "apiKey"
 const val PARAM_SORUCES = "sources"
+const val PARAM_CATEGORY = "category"
 
 class ApiConstants {
     companion object{
