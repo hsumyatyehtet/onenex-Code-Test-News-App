@@ -6,6 +6,8 @@ data class CategoryVO (
 
     var name: String,
 
+    var key: String,
+
     var isSelected: Boolean
 
 )

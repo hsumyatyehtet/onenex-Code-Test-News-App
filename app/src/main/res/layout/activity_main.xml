@@ -6,26 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/rlToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPurple500">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="The News"
-            android:layout_marginStart="@dimen/margin_medium_2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_regular_3x"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
-
     <fragment
         android:id="@+id/nav_host_news_fragment_container"
         android:layout_width="match_parent"
@@ -33,7 +13,6 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
         app:navGraph="@navigation/news_main_nav_graph"
-        android:layout_below="@+id/rlToolbar"
         android:layout_above="@+id/bottomNavigationView"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
