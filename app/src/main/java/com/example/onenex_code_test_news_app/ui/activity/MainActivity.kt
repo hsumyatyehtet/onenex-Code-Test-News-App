@@ -1,12 +1,10 @@
 package com.example.onenex_code_test_news_app.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.onenex_code_test_news_app.R
 import com.example.onenex_code_test_news_app.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
 

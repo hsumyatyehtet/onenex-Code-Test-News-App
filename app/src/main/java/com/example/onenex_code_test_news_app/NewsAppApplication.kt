@@ -1,4 +1,4 @@
-package com.example.onenex_code_test_news_app.ui
+package com.example.onenex_code_test_news_app
 
 import android.app.Application
 
