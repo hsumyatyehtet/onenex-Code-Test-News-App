@@ -5,20 +5,16 @@ import android.view.ViewGroup
 import com.example.onenex_code_test_news_app.data.vos.CategoryVO
 import com.example.onenex_code_test_news_app.databinding.ViewHolderInNewsListBinding
 import com.example.onenex_code_test_news_app.ui.viewholder.NewsListViewHolder
+import com.example.onenex_code_test_news_app.ui.viewholder.SavedNewsListViewHolder
 
-class NewsListAdapter(val delegate: Delegate) :BaseRecyclerAdapter<NewsListViewHolder,CategoryVO>(){
+class SavedNewsListAdapter() :BaseRecyclerAdapter<SavedNewsListViewHolder,CategoryVO>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListViewHolder {
-        return NewsListViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedNewsListViewHolder {
+        return SavedNewsListViewHolder(
             ViewHolderInNewsListBinding.inflate(
                 LayoutInflater.from(parent.context),parent,false
-            ),
-            delegate
+            )
         )
-    }
-
-    interface Delegate{
-        fun onTapItem()
     }
 
 }

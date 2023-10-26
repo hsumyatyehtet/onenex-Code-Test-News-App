@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onenex_code_test_news_app.R
 import com.example.onenex_code_test_news_app.data.vos.CategoryVO
 import com.example.onenex_code_test_news_app.databinding.FragmentNewsMainBinding
 import com.example.onenex_code_test_news_app.ui.adapter.CategoryListAdapter
 import com.example.onenex_code_test_news_app.ui.adapter.NewsListAdapter
 import com.example.onenex_code_test_news_app.utils.getCategoryList
 
-class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate{
+class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate,NewsListAdapter.Delegate{
 
     private lateinit var binding: FragmentNewsMainBinding
 
@@ -44,7 +46,7 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate{
 
         mCategoryAdapter.setNewData(getCategoryList())
 
-        mNewsListAdapter = NewsListAdapter()
+        mNewsListAdapter = NewsListAdapter(this)
         binding.rvNewsList.layoutManager =
             LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.rvNewsList.adapter = mNewsListAdapter
@@ -65,6 +67,10 @@ class NewsMainFragment : BaseFragment(),CategoryListAdapter.Delegate{
 
         mCategoryAdapter.setNewData(mDataList)
 
+    }
+
+    override fun onTapItem() {
+        findNavController().navigate(R.id.action_navNews_to_newsDetailFragment)
     }
 
 }

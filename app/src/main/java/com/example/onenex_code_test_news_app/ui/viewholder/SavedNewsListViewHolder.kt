@@ -1,21 +1,16 @@
 package com.example.onenex_code_test_news_app.ui.viewholder
 
+import com.example.onenex_code_test_news_app.R
 import com.example.onenex_code_test_news_app.data.vos.CategoryVO
 import com.example.onenex_code_test_news_app.databinding.ViewHolderInNewsListBinding
-import com.example.onenex_code_test_news_app.ui.adapter.NewsListAdapter
 
-class NewsListViewHolder(
-    private val binding: ViewHolderInNewsListBinding,
-    private val delegate: NewsListAdapter.Delegate
+class SavedNewsListViewHolder(
+    private val binding: ViewHolderInNewsListBinding
 ) : BaseViewHolder<CategoryVO>(binding.root) {
 
-    init {
-        itemView.setOnClickListener {
-            delegate.onTapItem()
-        }
-    }
-
     override fun bindData(data: CategoryVO) {
+
+        binding.ivSave.setImageDrawable(itemView.resources.getDrawable(R.drawable.baseline_bookmark_save))
 
     }
 
