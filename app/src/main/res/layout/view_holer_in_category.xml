@@ -20,6 +20,7 @@
         android:layout_alignStart="@id/tvCategoryName"
         android:layout_alignEnd="@+id/tvCategoryName"
         android:background="@color/colorPurple500"
-        android:layout_below="@+id/tvCategoryName"/>
+        android:layout_below="@+id/tvCategoryName"
+        android:visibility="gone"/>
 
 </RelativeLayout>
