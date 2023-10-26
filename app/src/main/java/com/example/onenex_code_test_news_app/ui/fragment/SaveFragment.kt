@@ -15,13 +15,14 @@ import com.example.onenex_code_test_news_app.databinding.FragmentNewsMainBinding
 import com.example.onenex_code_test_news_app.databinding.FragmentSaveBinding
 import com.example.onenex_code_test_news_app.ui.adapter.SavedNewsListAdapter
 import com.example.onenex_code_test_news_app.utils.StatefulData
+import com.example.onenex_code_test_news_app.utils.getBundleNewsDetail
 import com.example.onenex_code_test_news_app.utils.getCategoryList
 import com.example.onenex_code_test_news_app.viewmodel.SaveNewsListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SaveFragment : BaseFragment(),SavedNewsListAdapter.Delegate{
+class SaveFragment : BaseFragment(), SavedNewsListAdapter.Delegate {
 
     private lateinit var binding: FragmentSaveBinding
 
@@ -34,7 +35,7 @@ class SaveFragment : BaseFragment(),SavedNewsListAdapter.Delegate{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSaveBinding.inflate(inflater,container,false)
+        binding = FragmentSaveBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,22 +49,25 @@ class SaveFragment : BaseFragment(),SavedNewsListAdapter.Delegate{
     }
 
     private fun setUpDataBinding() {
-        viewModel.saveArticleList.observe(viewLifecycleOwner){
-            when(it.state){
-                StatefulData.DataState.LOADING ->{
+        viewModel.saveArticleList.observe(viewLifecycleOwner) {
+            when (it.state) {
+                StatefulData.DataState.LOADING -> {
 
                 }
+
                 StatefulData.DataState.ERROR -> {
 
-                    Log.d("errorMessage",it.message.toString())
+                    Log.d("errorMessage", it.message.toString())
                 }
+
                 StatefulData.DataState.SUCCESS -> {
 
-                    it.data?.let {articleList->
+                    it.data?.let { articleList ->
 
                         mSavedNewsAdapter.setNewData(articleList.toMutableList())
                     }
                 }
+
                 StatefulData.DataState.COMPLETED -> {
 
                 }
@@ -73,7 +77,7 @@ class SaveFragment : BaseFragment(),SavedNewsListAdapter.Delegate{
 
 
     private fun setUpDataObservation() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             viewModel.loadSaveNewsList()
         }
     }
@@ -82,14 +86,17 @@ class SaveFragment : BaseFragment(),SavedNewsListAdapter.Delegate{
 
         mSavedNewsAdapter = SavedNewsListAdapter(this)
         binding.rvSavedNewsList.layoutManager =
-            LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvSavedNewsList.adapter = mSavedNewsAdapter
 
 
     }
 
     override fun onTapItem(title: String, url: String) {
-        findNavController().navigate(R.id.action_navSave_to_newsDetailFragment)
+        findNavController().navigate(
+            R.id.action_navSave_to_newsDetailFragment,
+            getBundleNewsDetail(title = title)
+        )
     }
 
     override fun onTapSaveItem(articleVO: ArticleVO) {
