@@ -86,6 +86,7 @@ class NewsRepositoryImpl @Inject constructor(
             it.category = source
         }
 
+       // newsListDatabase.newsListDao().deleteAll()
         newsListDatabase.newsListDao().insertNewsList(articleList)
     }
 

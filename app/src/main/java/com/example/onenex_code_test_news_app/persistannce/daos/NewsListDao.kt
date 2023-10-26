@@ -24,5 +24,7 @@ interface NewsListDao {
     @Query("select * from news where isSave = :isSaved")
     fun getSavedNewsList(isSaved: Boolean): Flow<List<ArticleVO>>
 
+    @Query("DELETE FROM news")
+    fun deleteAll()
 
 }

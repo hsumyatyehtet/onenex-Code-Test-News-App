@@ -82,6 +82,7 @@ class NewsMainFragment : BaseFragment(), CategoryListAdapter.Delegate, NewsListA
                 StatefulData.DataState.SUCCESS -> {
 
                     it.data?.let { articleList ->
+                        articleList.sortedBy { it.id }
                         mNewsListAdapter.setNewData(articleList.toMutableList())
                     }
                 }

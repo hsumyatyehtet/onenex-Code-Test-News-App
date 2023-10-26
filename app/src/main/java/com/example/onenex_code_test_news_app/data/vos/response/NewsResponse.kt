@@ -12,7 +12,8 @@ data class NewsResponse(
     val articles: List<ArticleVO>
 )
 
-@Entity(tableName = "news", indices = [Index(value = ["title","publishedAt"], unique = true)])
+//@Entity(tableName = "news", indices = [Index(value = ["title","publishedAt"], unique = true)])
+@Entity(tableName = "news")
 data class ArticleVO(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
