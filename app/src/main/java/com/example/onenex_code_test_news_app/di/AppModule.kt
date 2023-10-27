@@ -46,7 +46,7 @@ object AppModule {
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .writeTimeout(15, TimeUnit.SECONDS)
                     .readTimeout(15, TimeUnit.SECONDS)
-                    .addInterceptor(ChuckInterceptor(context))
+                    //.addInterceptor(ChuckInterceptor(context))
 
                     .addInterceptor { chain ->
                         chain.proceed(
